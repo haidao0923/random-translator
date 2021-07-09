@@ -1,5 +1,5 @@
 # random-translator
-Translate given text into every languages recognized by Google Translator and then back into English.
+Translate given text into a subset of every languages recognized by Google Translator and then back into English.
 The order of the languages passed in is randomized which can lead to new and interesting results every time
 
 Inspired by a youtube video of "Let It Go" being translated to multiple languages and back into english https://www.youtube.com/watch?v=2bVAoVlFYf0
