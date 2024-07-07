@@ -6,11 +6,12 @@ from bs4 import BeautifulSoup, NavigableString
 import re
 
 
-song_titles = song_scraper.scrape_billboard_hot_song_titles()
+song_titles_and_artists = song_scraper.scrape_billboard_hot_song_titles()
 
-for i in range(len(song_titles)):
-    print(i, song_titles[i])
-    lyric_text = song_scraper.find_lyric_using_song_title(song_titles[i])
+for i in range(len(song_titles_and_artists)):
+    print(i, song_titles_and_artists[i][0], song_titles_and_artists[i][1])
+    lyric_text = song_scraper.find_lyric_using_song_title_and_artist(
+        song_titles_and_artists[i][0], song_titles_and_artists[i][1])
     print(lyric_text)
     print("----------------------------------------------------")
 
