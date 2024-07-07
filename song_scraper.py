@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup, NavigableString
 import os
 from dotenv import load_dotenv
 
+# I find that returning song title + artist give a more accurate query for Genius.com
 def scrape_billboard_hot_song_titles(n=10):
     response = requests.get("https://www.billboard.com/charts/hot-100/")
 
@@ -10,9 +11,10 @@ def scrape_billboard_hot_song_titles(n=10):
 
     song_title_containers = soup.find_all('div', class_="o-chart-results-list-row-container")
     song_titles = []
-    for i in range(10):
+    for i in range(n):
         song_title = song_title_containers[i].find("ul").find("li", class_="lrv-u-width-100p").find("ul").find("li").find("h3").text.strip()
-        song_titles.append(song_title)
+        artist = song_title_containers[i].find("ul").find("li", class_="lrv-u-width-100p").find("ul").find("li").find("span").text.strip()
+        song_titles.append(f"{song_title} {artist}")
     return song_titles
 
 def find_lyric_using_song_title(song_title_param):

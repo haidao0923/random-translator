@@ -6,13 +6,13 @@ from bs4 import BeautifulSoup, NavigableString
 import re
 
 
-#song_titles = song_scraper.scrape_billboard_hot_song_titles()
+song_titles = song_scraper.scrape_billboard_hot_song_titles()
 
-#for i in range(len(song_titles)):
-#    print(i, song_titles[i])
-
-lyric_text = song_scraper.find_lyric_using_song_title("Let it go")
-print(lyric_text)
+for i in range(len(song_titles)):
+    print(i, song_titles[i])
+    lyric_text = song_scraper.find_lyric_using_song_title(song_titles[i])
+    print(lyric_text)
+    print("----------------------------------------------------")
 
 file_path = 'text.txt'
 
