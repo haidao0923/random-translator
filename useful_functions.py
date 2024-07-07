@@ -7,18 +7,23 @@ def translate_entire_file(file_path, debug_style, n=10):
     text = file.read()
     file.close()
 
-    translate(text, debug_style, n)
+    translated_text = translate(text, debug_style, n)
+    write_to_file(translated_text)
 
 def translate_by_line(file_path, debug_style, n=10):
     file = open(file_path)
     lines = file.read().splitlines()
     file.close()
 
-    final_list = []
+    translated_lines = []
     for line in lines:
-        final_list += [translate(line, debug_style, n)]
-    for line in final_list:
-        print(line)
+        translated_lines.append(translate(line, debug_style, n))
+
+    translated_text = ""
+    for line in translated_lines:
+        translated_text += line + "\n"
+
+    write_to_file(translated_text)
 
 def translate(text, debug_style, n):
     if text == '':
@@ -27,28 +32,34 @@ def translate(text, debug_style, n):
     # randomized the languages to be translated
     random.shuffle(GoogleTranslator.get_supported_languages())
     # translate with the first n random languages
-    for x in itertools.islice(GoogleTranslator.get_supported_languages(), n):
-        text = GoogleTranslator(source='auto', target=x).translate(text)
-        debug_type(debug_style, x, text)
+    for language in itertools.islice(GoogleTranslator.get_supported_languages(), n):
+        text = GoogleTranslator(source='auto', target=language).translate(text)
+        debug_type(debug_style, language, text)
     return translate_back_into_english(original_text, text)
-    
+
 def debug_type(option, x, text):
     function_dict = {'english' : debug_english,
                      'simple'  : debug_simple,
+                     'none'    : lambda x,y:None
     }
     function_dict[option](x, text)
 
 def debug_english(x, text):
     print(f'''{x} -> {GoogleTranslator(source='auto', target='en').translate(text)}''')
     print('=====================')
-    
+
 def debug_simple(x, text):
     print(f'{x} -> {text}')
     print('=====================')
-    
+
 def translate_back_into_english(original_text, text):
     text = GoogleTranslator(source='auto', target='en').translate(text)
     print(f'original -> {original_text}')
     print('=====================')
     print(f'en -> {text}\n')
     return text
+
+def write_to_file(text):
+    file = open("translated_lyric.txt", "w")
+    file.write(text)
+    file.close()
