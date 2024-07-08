@@ -2,16 +2,16 @@ import random
 import itertools
 from deep_translator import GoogleTranslator
 
-def translate_entire_file(file_path, debug_style, n=10):
-    file = open(file_path)
+def translate_entire_file(src_path, dest_path, debug_style, n=10):
+    file = open(src_path)
     text = file.read()
     file.close()
 
     translated_text = translate(text, debug_style, n)
-    write_to_file(translated_text)
+    write_to_file(dest_path, translated_text)
 
-def translate_by_line(file_path, debug_style, n=10):
-    file = open(file_path)
+def translate_by_line(src_path, dest_path, debug_style, n=10):
+    file = open(src_path)
     lines = file.read().splitlines()
     file.close()
 
@@ -23,7 +23,7 @@ def translate_by_line(file_path, debug_style, n=10):
     for line in translated_lines:
         translated_text += line + "\n"
 
-    write_to_file(translated_text)
+    write_to_file(dest_path, translated_text)
 
 def translate(text, debug_style, n):
     if text == '':
@@ -59,7 +59,6 @@ def translate_back_into_english(original_text, text):
     print(f'en -> {text}\n')
     return text
 
-def write_to_file(text):
-    file = open("translated_lyric.txt", "w")
-    file.write(text)
-    file.close()
+def write_to_file(dest_path, text):
+    with open(dest_path, 'w', encoding='utf-8') as file:
+        file.write(text)

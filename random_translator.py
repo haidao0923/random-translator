@@ -4,21 +4,34 @@ import song_scraper
 import requests
 from bs4 import BeautifulSoup, NavigableString
 import re
+import os
 
-
-song_titles_and_artists = song_scraper.scrape_billboard_hot_song_titles()
+song_titles_and_artists = song_scraper.scrape_billboard_hot_song_titles(10)
 
 for i in range(len(song_titles_and_artists)):
     print(i, song_titles_and_artists[i][0], song_titles_and_artists[i][1])
     lyric_text = song_scraper.find_lyric_using_song_title_and_artist(
         song_titles_and_artists[i][0], song_titles_and_artists[i][1])
     print(lyric_text)
+
+
+    #TODO: Temp commented while testing
+    # Save original lyric to file
+    os.makedirs("billboard_hot_songs", exist_ok=True)
+    source_path = f"billboard_hot_songs/{i+1}_original.txt"
+    with open(source_path, 'w', encoding='utf-8') as file:
+        file.write(lyric_text)
+
+    dest_path = f"billboard_hot_songs/{i+1}_translated.txt"
+
+    useful_functions.translate_entire_file(source_path, dest_path, 'simple', 5)
+
+
     print("----------------------------------------------------")
 
 file_path = 'text.txt'
 
 #useful_functions.translate_by_line(file_path, 'none', 5)
-#useful_functions.translate_entire_file(file_path, 'simple', 5)
 
 
 
