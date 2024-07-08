@@ -12,7 +12,7 @@ for i in range(len(song_titles_and_artists)):
     print(i, song_titles_and_artists[i][0], song_titles_and_artists[i][1])
     lyric_text = song_scraper.find_lyric_using_song_title_and_artist(
         song_titles_and_artists[i][0], song_titles_and_artists[i][1])
-    #print(lyric_text)
+    print(lyric_text)
 
     os.makedirs(f"billboard_hot_songs_{today.strftime('%Y-%m-%d')}", exist_ok=True)
     source_path = f"billboard_hot_songs_{today.strftime('%Y-%m-%d')}/{i+1}_original.txt"
