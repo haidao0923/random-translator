@@ -15,6 +15,7 @@ jobs:
       - name: Generate file
         run: |
           pip install requests
+          pip install deep-translator
           python random_translator.py
 
       - name: Commit changes
