@@ -17,7 +17,10 @@ def translate_by_line(src_path, dest_path, debug_style, n=10):
 
     translated_lines = []
     for line in lines:
-        translated_lines.append(translate(line, debug_style, n))
+        if any(c.isalpha() for c in line): # if line contain any character a-z (edge case for just '&' or '(' character parsed))
+            translated_lines.append(translate(line, debug_style, n))
+        else: # empty line
+            translated_lines.append("")
 
     translated_text = ""
     for line in translated_lines:
