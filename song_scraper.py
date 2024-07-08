@@ -25,8 +25,6 @@ def find_lyric_using_song_title_and_artist(song_title_param, artist_param):
     load_dotenv()
     GENIUS_API_ACCESS_TOKEN = os.getenv("GENIUS_API_ACCESS_TOKEN")
 
-    print("Token: ", GENIUS_API_ACCESS_TOKEN)
-
     if song_title_param == "":
         return
 
@@ -34,7 +32,7 @@ def find_lyric_using_song_title_and_artist(song_title_param, artist_param):
 
     search_response = requests.get(search_query, headers={'Authorization': f'Bearer {GENIUS_API_ACCESS_TOKEN}'})
 
-    print(search_response.json())
+    # print(search_response.json())
     # Check likelihood that search query result is from same artist
     # Stop at 80% likelihood
     hits = search_response.json()["response"]["hits"]
@@ -54,9 +52,13 @@ def find_lyric_using_song_title_and_artist(song_title_param, artist_param):
     print("Lyric Page:", lyric_page_path)
 
     lyric_response = requests.get(lyric_page_path)
+    print("Lyric Response: ", lyric_response.json())
     soup = BeautifulSoup(lyric_response.content, 'html.parser')
     lyric_containers = soup.find_all("div", class_="Lyrics__Container-sc-1ynbvzw-1")
+    print("Lyric Containers: ", lyric_containers)
     lyric_text = ""
     for i in lyric_containers:
         lyric_text += i.get_text(strip=True, separator="\n") + "\n"
+        print("Lyric Text: ", lyric_text)
+
     return lyric_text
