@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup, NavigableString
 import os
+import time
 from dotenv import load_dotenv
 from difflib import SequenceMatcher
 
@@ -52,6 +53,7 @@ def find_lyric_using_song_title_and_artist(song_title_param, artist_param):
     print("Lyric Page:", lyric_page_path)
 
     lyric_response = requests.get(lyric_page_path)
+    time.sleep(10)
     print("Lyric Response: ", lyric_response.text)
     soup = BeautifulSoup(lyric_response.content, 'html.parser')
     lyric_containers = soup.find_all("div", class_="Lyrics__Container-sc-1ynbvzw-1")
