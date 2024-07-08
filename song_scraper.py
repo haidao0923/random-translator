@@ -25,6 +25,8 @@ def find_lyric_using_song_title_and_artist(song_title_param, artist_param):
     load_dotenv()
     GENIUS_API_ACCESS_TOKEN = os.getenv("GENIUS_API_ACCESS_TOKEN")
 
+    print("Token: ", GENIUS_API_ACCESS_TOKEN)
+
     if song_title_param == "":
         return
 
@@ -32,6 +34,7 @@ def find_lyric_using_song_title_and_artist(song_title_param, artist_param):
 
     search_response = requests.get(search_query, headers={'Authorization': f'Bearer {GENIUS_API_ACCESS_TOKEN}'})
 
+    print(search_response.json())
     # Check likelihood that search query result is from same artist
     # Stop at 80% likelihood
     hits = search_response.json()["response"]["hits"]
