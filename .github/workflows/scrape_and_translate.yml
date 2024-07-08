@@ -16,7 +16,7 @@ jobs:
         run: |
           pip install requests
           pip install deep-translator
-          pip install dotenv
+          pip install python-dotenv
           python random_translator.py
 
       - name: Commit changes
