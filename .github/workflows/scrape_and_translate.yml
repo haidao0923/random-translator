@@ -1,0 +1,26 @@
+name: Scrape and Translate workflow
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  scrape_and_translate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate file
+        run: |
+          pip install requests
+          python random_translator.py
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "Github Actions"
+          git config --global user.email "haidao0923@users.noreply.github.com"
+          git add .
+          git commit -m "Add daily top 10 billboard file + translation"
+          git push
