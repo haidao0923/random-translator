@@ -3,7 +3,7 @@ import itertools
 from deep_translator import GoogleTranslator
 
 def translate_entire_file(src_path, dest_path, debug_style, n=10):
-    file = open(src_path)
+    file = open(src_path, encoding='utf-8')
     text = file.read()
     file.close()
 
@@ -11,7 +11,7 @@ def translate_entire_file(src_path, dest_path, debug_style, n=10):
     write_to_file(dest_path, translated_text)
 
 def translate_by_line(src_path, dest_path, debug_style, n=10):
-    file = open(src_path)
+    file = open(src_path, encoding='utf-8')
     lines = file.read().splitlines()
     file.close()
 

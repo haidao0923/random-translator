@@ -53,14 +53,14 @@ def find_lyric_using_song_title_and_artist(song_title_param, artist_param):
     print("Lyric Page:", lyric_page_path)
 
     lyric_response = requests.get(lyric_page_path)
-    time.sleep(10)
-    print("Lyric Response: ", lyric_response.text)
+    #time.sleep(10)
+    #print("Lyric Response: ", lyric_response.text)
     soup = BeautifulSoup(lyric_response.content, 'html.parser')
     lyric_containers = soup.find_all("div", class_="Lyrics__Container-sc-1ynbvzw-1")
-    print("Lyric Containers: ", lyric_containers)
+    #print("Lyric Containers: ", lyric_containers)
     lyric_text = ""
     for i in lyric_containers:
         lyric_text += i.get_text(strip=True, separator="\n") + "\n"
-        print("Lyric Text: ", lyric_text)
+        #print("Lyric Text: ", lyric_text)
 
     return lyric_text
